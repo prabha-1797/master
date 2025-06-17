@@ -12,7 +12,7 @@ st.image("https://via.placeholder.com/300", caption="B. Venkateshwar Rao", use_c
 st.markdown("## 🧘‍♂️ Student Experiences")
 with st.container():
     st.markdown("""
-    <iframe width="100%" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
+    <iframe width="100%" height="315" src="https://www.youtube.com/embed/rCl1wvD479Y?si=l-GK3Nr_b-3jIUUm" 
     title="YouTube video" frameborder="0" allowfullscreen></iframe>
     """, unsafe_allow_html=True)
 

@@ -63,7 +63,7 @@ st.markdown("""
 
 
 st.markdown("""
-    #### Cancellation and Refund Policy
+    #### Cancellation and Refunds
     - No refunds after registration.  
     - Rescheduling may be provided for genuine reasons (only once).  
     - Organizer-initiated cancellations will be rescheduled.

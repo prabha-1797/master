@@ -36,7 +36,15 @@ st.markdown("### 📋 Please agree to the following policies to continue:")
 terms = st.checkbox("I agree to the Terms and Conditions")
 privacy = st.checkbox("I agree to the Privacy Policy")
 refund = st.checkbox("I agree to the Cancellation and Refund Policy")
-
+# Simulated Payment Button
+if st.button("Pay Now (Simulation Only)"):
+    if not name or not phone:
+        st.warning("Please enter both your name and phone number.")
+    elif not (terms and privacy and refund):
+        st.warning("Please agree to all the policies before proceeding.")
+    else:
+        st.success("Thank you! This is a test payment simulation only.")
+        st.info("Live payment will be enabled once Razorpay approves the website.")
 
 st.markdown("""
     #### Terms and Conditions
@@ -61,15 +69,7 @@ st.markdown("""
     - Organizer-initiated cancellations will be rescheduled.
     """)
 
-# Simulated Payment Button
-if st.button("Pay Now (Simulation Only)"):
-    if not name or not phone:
-        st.warning("Please enter both your name and phone number.")
-    elif not (terms and privacy and refund):
-        st.warning("Please agree to all the policies before proceeding.")
-    else:
-        st.success("Thank you! This is a test payment simulation only.")
-        st.info("Live payment will be enabled once Razorpay approves the website.")
+
 
 # Footer
 st.markdown("---")

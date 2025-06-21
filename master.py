@@ -63,7 +63,7 @@ st.markdown("""
 
 
 st.markdown("""
-    #### Cancellation and Refund Policy
+    #### Cancellations and Refunds
     - Refunds are accepted within 7 working days of registration.  
     - After 7 days, rescheduling may be provided for genuine reasons (only once).  
     - Organizer-initiated cancellations will be rescheduled or fully refunded.

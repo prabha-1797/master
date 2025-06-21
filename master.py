@@ -37,8 +37,7 @@ terms = st.checkbox("I agree to the Terms and Conditions")
 privacy = st.checkbox("I agree to the Privacy Policy")
 refund = st.checkbox("I agree to the Cancellation and Refund Policy")
 
-# Display policy content inline
-if terms:
+
     st.markdown("""
     #### Terms and Conditions
     - Classes are for spiritual and wellness learning only.  
@@ -46,7 +45,7 @@ if terms:
     - Misconduct may result in termination without refund.
     """)
 
-if privacy:
+
     st.markdown("""
     #### Privacy Policy
     - Your personal data (name, phone) is only used for class-related communication.  
@@ -54,7 +53,7 @@ if privacy:
     - Your data is stored securely.
     """)
 
-if refund:
+
     st.markdown("""
     #### Cancellation and Refund Policy
     - No refunds after registration.  

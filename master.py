@@ -4,7 +4,7 @@ import streamlit as st
 st.set_page_config(page_title="Master of Masters", layout="centered")
 
 # Title and Image
-st.title("Master of Masters My Dear God Master")
+st.title("Ayushman Bhava")
 st.markdown("### Learn Meditation & Kriya Yoga from the Enlightened Guide")
 st.image("https://via.placeholder.com/300", caption="B. Venkateshwar Rao", use_container_width=False)
 
@@ -45,7 +45,7 @@ if st.button("Pay Now (Simulation Only)"):
 st.markdown("""
 ---
 <center>
-    © 2025 Master of Masters My Dear God Master | All Rights Reserved  \n
-    Contact: masterofmastersmydeargodmaster@gmail.com
+    © 2025 Ayushman Bhava | All Rights Reserved  \n
+    Contact: ayushmanbhava@gmail.com
 </center>
 """, unsafe_allow_html=True)

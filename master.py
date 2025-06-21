@@ -1,14 +1,19 @@
 import streamlit as st
 
-# Set page config
+# Page config
 st.set_page_config(page_title="Master of Masters", layout="centered")
 
-# Title and Image
+# Initialize session state flags for each policy
+for key in ["terms_viewed", "refund_viewed", "privacy_viewed"]:
+    if key not in st.session_state:
+        st.session_state[key] = False
+
+# Title and Header
 st.title("Ayushman Bhava")
 st.markdown("### Learn Meditation & Kriya Yoga from the Enlightened Guide")
 st.image("https://via.placeholder.com/300", caption="B. Venkateshwar Rao", use_container_width=False)
 
-# YouTube testimonials section
+# Testimonials
 st.markdown("## 🧘‍♂️ Student Experiences")
 with st.container():
     st.markdown("""
@@ -16,7 +21,7 @@ with st.container():
     title="YouTube video" frameborder="0" allowfullscreen></iframe>
     """, unsafe_allow_html=True)
 
-# About section
+# About Section
 st.markdown("## 🙏 About the Yoga Teacher")
 st.write("""
 B. Venkateshwar Rao is a seasoned master in the fields of Meditation and Kriya Yoga Sadhana. 
@@ -25,53 +30,60 @@ towards inner peace and true consciousness. His unique energy and divine underst
 earned him the reverence of being called the "Master of Masters."
 """)
 
-# Pricing & Payment (Dummy Mode)
+# Class Selection and Details
 st.markdown("## 💸 Join the Class")
-st.write("Choose your mode of class and proceed (simulated).")
-
 option = st.radio("Select Class Type", ("Online Class - ₹999", "Offline Class - ₹799"))
 name = st.text_input("Enter your name")
 phone = st.text_input("Enter your phone number")
 
-# --- MODALS for policies ---
-if st.button("View Terms & Conditions"):
-    with st.modal("📄 Terms and Conditions"):
-        st.markdown("""
-        - The classes are intended for spiritual and wellness development only.  
-        - Sharing of session content or links is strictly prohibited.  
-        - Misconduct during classes (online/offline) may result in termination without refund.
-        """)
+# --- Policy Modals with session state tracking ---
+col1, col2, col3 = st.columns(3)
 
-if st.button("View Cancellation & Refund Policy"):
-    with st.modal("🔄 Cancellations and Refunds"):
-        st.markdown("""
-        - No refunds will be provided after registration.  
-        - In case of cancellation by the organizer, rescheduling will be offered.  
-        - Inform us at least 24 hours prior for rescheduling eligibility (only once).
-        """)
+with col1:
+    if st.button("View Terms"):
+        with st.modal("📄 Terms and Conditions"):
+            st.session_state.terms_viewed = True
+            st.markdown("""
+            - Classes are for spiritual and wellness learning only.  
+            - No sharing of session content.  
+            - Misconduct leads to termination without refund.
+            """)
 
-if st.button("View Privacy Policy"):
-    with st.modal("🔐 Privacy Policy"):
-        st.markdown("""
-        - Your data (name and phone) is used only for communication related to the class.  
-        - We do not share your data with third parties.  
-        - All data is stored securely and treated with confidentiality.
-        """)
+with col2:
+    if st.button("View Refund Policy"):
+        with st.modal("🔄 Cancellations and Refunds"):
+            st.session_state.refund_viewed = True
+            st.markdown("""
+            - No refunds post-registration.  
+            - Rescheduling available for valid reasons (once only).  
+            - Organizer cancellations = full reschedule.
+            """)
 
-# Terms checkboxes (actual agreement confirmation)
-st.markdown("### ✅ Consent")
-terms = st.checkbox("I agree to the Terms and Conditions")
-cancellation = st.checkbox("I understand the Cancellations and Refunds policy")
-privacy = st.checkbox("I agree to the Privacy Policy")
+with col3:
+    if st.button("View Privacy Policy"):
+        with st.modal("🔐 Privacy Policy"):
+            st.session_state.privacy_viewed = True
+            st.markdown("""
+            - Your data is used only for communication.  
+            - No sharing with third parties.  
+            - Stored securely and treated confidentially.
+            """)
 
-# Simulated payment
+# Show policy status
+st.markdown("### ✅ Policies Acknowledged:")
+st.write(f"✔️ Terms & Conditions: {'Viewed ✅' if st.session_state.terms_viewed else '❌ Not yet'}")
+st.write(f"✔️ Cancellations & Refunds: {'Viewed ✅' if st.session_state.refund_viewed else '❌ Not yet'}")
+st.write(f"✔️ Privacy Policy: {'Viewed ✅' if st.session_state.privacy_viewed else '❌ Not yet'}")
+
+# Payment Simulation
+st.markdown("### 🚀 Confirm Payment")
 if st.button("Pay Now (Simulation Only)"):
     if not (name and phone):
-        st.warning("Please enter both name and phone number.")
-    elif not (terms and cancellation and privacy):
-        st.warning("Please agree to all the terms to proceed.")
+        st.warning("Please enter your name and phone number.")
+    elif not (st.session_state.terms_viewed and st.session_state.refund_viewed and st.session_state.privacy_viewed):
+        st.warning("Please view and acknowledge all policies before proceeding.")
     else:
-        st.success("Thank you! This is a test payment simulation only.")
+        st.success("Payment Successful (Simulation Only).")
         st.info("Live payment will be enabled once Razorpay approves the website.")
 
 # Footer

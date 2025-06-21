@@ -3,11 +3,6 @@ import streamlit as st
 # Page configuration
 st.set_page_config(page_title="Master of Masters", layout="centered")
 
-# Initialize session state flags for viewing policies
-for key in ["terms_viewed", "refund_viewed", "privacy_viewed"]:
-    if key not in st.session_state:
-        st.session_state[key] = False
-
 # Title and Header
 st.title("Ayushman Bhava")
 st.markdown("### Learn Meditation & Kriya Yoga from the Enlightened Guide")
@@ -35,61 +30,48 @@ option = st.radio("Select Class Type", ("Online Class - ₹999", "Offline Class 
 name = st.text_input("Enter your name")
 phone = st.text_input("Enter your phone number")
 
-# Policy Modal Buttons
-col1, col2, col3 = st.columns(3)
+# Checkboxes for policies
+st.markdown("### 📋 Please agree to the following policies to continue:")
 
-with col1:
-    if st.button("View Terms"):
-        with st.modal("📄 Terms and Conditions"):
-            st.session_state.terms_viewed = True
-            st.markdown("""
-            - Classes are for spiritual and wellness learning only.  
-            - No sharing of session content.  
-            - Misconduct leads to termination without refund.
-            """)
+terms = st.checkbox("I agree to the Terms and Conditions")
+privacy = st.checkbox("I agree to the Privacy Policy")
+refund = st.checkbox("I agree to the Cancellation and Refund Policy")
 
-with col2:
-    if st.button("View Refund Policy"):
-        with st.modal("🔄 Cancellations and Refunds"):
-            st.session_state.refund_viewed = True
-            st.markdown("""
-            - No refunds post-registration.  
-            - Rescheduling available for valid reasons (once only).  
-            - Organizer cancellations = full reschedule.
-            """)
+# Display policy content inline
+if terms:
+    st.markdown("""
+    #### Terms and Conditions
+    - Classes are for spiritual and wellness learning only.  
+    - No sharing of session content or materials.  
+    - Misconduct may result in termination without refund.
+    """)
 
-with col3:
-    if st.button("View Privacy Policy"):
-        with st.modal("🔐 Privacy Policy"):
-            st.session_state.privacy_viewed = True
-            st.markdown("""
-            - Your data is used only for communication.  
-            - No sharing with third parties.  
-            - Stored securely and treated confidentially.
-            """)
+if privacy:
+    st.markdown("""
+    #### Privacy Policy
+    - Your personal data (name, phone) is only used for class-related communication.  
+    - We do not share your data with third parties.  
+    - Your data is stored securely.
+    """)
 
-# Acknowledgment Status
-st.markdown("### ✅ Policy Acknowledgment Status")
-st.write(f"✔️ Terms & Conditions: {'Viewed ✅' if st.session_state.terms_viewed else '❌ Not viewed'}")
-st.write(f"✔️ Cancellations & Refunds: {'Viewed ✅' if st.session_state.refund_viewed else '❌ Not viewed'}")
-st.write(f"✔️ Privacy Policy: {'Viewed ✅' if st.session_state.privacy_viewed else '❌ Not viewed'}")
+if refund:
+    st.markdown("""
+    #### Cancellation and Refund Policy
+    - No refunds after registration.  
+    - Rescheduling may be provided for genuine reasons (only once).  
+    - Organizer-initiated cancellations will be rescheduled.
+    """)
 
 # Simulated Payment Button
-st.markdown("### 🚀 Confirm Payment")
 if st.button("Pay Now (Simulation Only)"):
-    if not (name and phone):
-        st.warning("Please enter your name and phone number.")
-    elif not (st.session_state.terms_viewed and st.session_state.refund_viewed and st.session_state.privacy_viewed):
-        st.warning("Please view and acknowledge all policies before proceeding.")
+    if not name or not phone:
+        st.warning("Please enter both your name and phone number.")
+    elif not (terms and privacy and refund):
+        st.warning("Please agree to all the policies before proceeding.")
     else:
         st.success("Thank you! This is a test payment simulation only.")
         st.info("Live payment will be enabled once Razorpay approves the website.")
 
-# Footer (safe HTML)
-st.markdown("""
----
-<div style="text-align: center;">
-    © 2025 Ayushman Bhava | All Rights Reserved<br>
-    Contact: <a href="mailto:ayushmanbhava@gmail.com">ayushmanbhava@gmail.com</a>
-</div>
-""", unsafe_allow_html=True)
+# Footer
+st.markdown("---")
+st.markdown("© 2025 Ayushman Bhava | All Rights Reserved  \nContact: ayushmanbhava@gmail.com")

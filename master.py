@@ -34,12 +34,41 @@ option = st.radio("Select Class Type", ("Online Class - ₹999", "Offline Class 
 name = st.text_input("Enter your name")
 phone = st.text_input("Enter your phone number")
 
+# Terms and conditions checkboxes
+st.markdown("### 📋 Agreements")
+
+terms = st.checkbox("I agree to the [Terms and Conditions](#terms)", help="You must agree to the terms to proceed.")
+cancellation = st.checkbox("I understand the [Cancellations and Refunds](#cancellation-policy)", help="Please confirm you’ve read the cancellation policy.")
+privacy = st.checkbox("I agree to the [Privacy Policy](#privacy-policy)", help="Your data will be handled with care.")
+
+# Payment simulation
 if st.button("Pay Now (Simulation Only)"):
-    if name and phone:
+    if not (name and phone):
+        st.warning("Please enter both name and phone number.")
+    elif not (terms and cancellation and privacy):
+        st.warning("Please agree to all the terms to proceed.")
+    else:
         st.success("Thank you! This is a test payment simulation only.")
         st.info("Live payment will be enabled once Razorpay approves the website.")
-    else:
-        st.warning("Please enter both name and phone number.")
+
+# Terms content
+st.markdown("""
+---
+## 📄 Terms and Conditions
+- The classes are intended for spiritual and wellness development only.
+- Sharing of session content or links is strictly prohibited.
+- Misconduct during classes (online/offline) may result in termination without refund.
+
+## 🔄 Cancellations and Refunds
+- No refunds will be provided after registration.
+- In case of technical issues or cancellation from the organizer, rescheduling will be offered.
+- If you are unable to attend, please inform 24 hours in advance for rescheduling eligibility (only once).
+
+## 🔐 Privacy Policy
+- Your personal data (name, phone) will only be used for class communication purposes.
+- We do not share your information with third-party vendors or marketing agencies.
+- All data is stored securely and used in accordance with applicable privacy laws.
+""")
 
 # Footer
 st.markdown("""

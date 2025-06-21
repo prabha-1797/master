@@ -1,9 +1,9 @@
 import streamlit as st
 
-# Page config
+# Page configuration
 st.set_page_config(page_title="Master of Masters", layout="centered")
 
-# Initialize session state flags for each policy
+# Initialize session state flags for viewing policies
 for key in ["terms_viewed", "refund_viewed", "privacy_viewed"]:
     if key not in st.session_state:
         st.session_state[key] = False
@@ -15,13 +15,12 @@ st.image("https://via.placeholder.com/300", caption="B. Venkateshwar Rao", use_c
 
 # Testimonials
 st.markdown("## 🧘‍♂️ Student Experiences")
-with st.container():
-    st.markdown("""
-    <iframe width="100%" height="315" src="https://www.youtube.com/embed/rCl1wvD479Y?si=l-GK3Nr_b-3jIUUm" 
-    title="YouTube video" frameborder="0" allowfullscreen></iframe>
-    """, unsafe_allow_html=True)
+st.markdown("""
+<iframe width="100%" height="315" src="https://www.youtube.com/embed/rCl1wvD479Y?si=l-GK3Nr_b-3jIUUm" 
+title="YouTube video" frameborder="0" allowfullscreen></iframe>
+""", unsafe_allow_html=True)
 
-# About Section
+# About the Teacher
 st.markdown("## 🙏 About the Yoga Teacher")
 st.write("""
 B. Venkateshwar Rao is a seasoned master in the fields of Meditation and Kriya Yoga Sadhana. 
@@ -30,13 +29,13 @@ towards inner peace and true consciousness. His unique energy and divine underst
 earned him the reverence of being called the "Master of Masters."
 """)
 
-# Class Selection and Details
+# Class Selection
 st.markdown("## 💸 Join the Class")
 option = st.radio("Select Class Type", ("Online Class - ₹999", "Offline Class - ₹799"))
 name = st.text_input("Enter your name")
 phone = st.text_input("Enter your phone number")
 
-# --- Policy Modals with session state tracking ---
+# Policy Modal Buttons
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -69,13 +68,13 @@ with col3:
             - Stored securely and treated confidentially.
             """)
 
-# Show policy status
-st.markdown("### ✅ Policies Acknowledged:")
-st.write(f"✔️ Terms & Conditions: {'Viewed ✅' if st.session_state.terms_viewed else '❌ Not yet'}")
-st.write(f"✔️ Cancellations & Refunds: {'Viewed ✅' if st.session_state.refund_viewed else '❌ Not yet'}")
-st.write(f"✔️ Privacy Policy: {'Viewed ✅' if st.session_state.privacy_viewed else '❌ Not yet'}")
+# Acknowledgment Status
+st.markdown("### ✅ Policy Acknowledgment Status")
+st.write(f"✔️ Terms & Conditions: {'Viewed ✅' if st.session_state.terms_viewed else '❌ Not viewed'}")
+st.write(f"✔️ Cancellations & Refunds: {'Viewed ✅' if st.session_state.refund_viewed else '❌ Not viewed'}")
+st.write(f"✔️ Privacy Policy: {'Viewed ✅' if st.session_state.privacy_viewed else '❌ Not viewed'}")
 
-# Payment Simulation
+# Simulated Payment Button
 st.markdown("### 🚀 Confirm Payment")
 if st.button("Pay Now (Simulation Only)"):
     if not (name and phone):
@@ -83,14 +82,14 @@ if st.button("Pay Now (Simulation Only)"):
     elif not (st.session_state.terms_viewed and st.session_state.refund_viewed and st.session_state.privacy_viewed):
         st.warning("Please view and acknowledge all policies before proceeding.")
     else:
-        st.success("Payment Successful (Simulation Only).")
+        st.success("Thank you! This is a test payment simulation only.")
         st.info("Live payment will be enabled once Razorpay approves the website.")
 
-# Footer
+# Footer (safe HTML)
 st.markdown("""
 ---
-<center>
-    © 2025 Ayushman Bhava | All Rights Reserved  \n
-    Contact: ayushmanbhava@gmail.com
-</center>
+<div style="text-align: center;">
+    © 2025 Ayushman Bhava | All Rights Reserved<br>
+    Contact: <a href="mailto:ayushmanbhava@gmail.com">ayushmanbhava@gmail.com</a>
+</div>
 """, unsafe_allow_html=True)

@@ -38,7 +38,7 @@ privacy = st.checkbox("I agree to the Privacy Policy")
 refund = st.checkbox("I agree to the Cancellation and Refund Policy")
 
 
-    st.markdown("""
+st.markdown("""
     #### Terms and Conditions
     - Classes are for spiritual and wellness learning only.  
     - No sharing of session content or materials.  
@@ -46,7 +46,7 @@ refund = st.checkbox("I agree to the Cancellation and Refund Policy")
     """)
 
 
-    st.markdown("""
+st.markdown("""
     #### Privacy Policy
     - Your personal data (name, phone) is only used for class-related communication.  
     - We do not share your data with third parties.  
@@ -54,7 +54,7 @@ refund = st.checkbox("I agree to the Cancellation and Refund Policy")
     """)
 
 
-    st.markdown("""
+st.markdown("""
     #### Cancellation and Refund Policy
     - No refunds after registration.  
     - Rescheduling may be provided for genuine reasons (only once).  

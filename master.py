@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Page configuration
-st.set_page_config(page_title="Master of Masters", layout="centered")
+st.set_page_config(page_title="Ayushman Bhava", layout="centered")
 
 # Title and Header
 st.title("Ayushman Bhava")

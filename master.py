@@ -22,8 +22,7 @@ client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
 
 # Title and Header
 st.title("Ayushman Bhava")
-st.markdown("### Learn Meditation & Kriya Yoga from the Enlightened Guide")
-st.image("https://via.placeholder.com/300", caption="B. Venkateshwar Rao", use_container_width=False)
+st.markdown("### Learn Meditation & Kriya Yoga from the Enlightened Teacher.")
 
 # Testimonials
 st.markdown("## 🧘‍♂️ Student Experiences")
@@ -47,10 +46,10 @@ st.write("Choose your mode of class and proceed to payment.")
 
 col1, col2 = st.columns(2)
 with col1:
-    st.markdown("### 🌐 Online Class")
+    st.markdown("### 🌐 Online Yoga Class")
     st.markdown("₹999")
 with col2:
-    st.markdown("### 🏡 Offline Class")
+    st.markdown("### 🏡 Offline Yoga Class")
     st.markdown("₹799")
 
 option = st.radio("Select Class Type", ("Online Class - ₹999", "Offline Class - ₹799"))

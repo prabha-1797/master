@@ -3,6 +3,7 @@ import smtplib
 import razorpay
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from streamlit.components.v1 import html
 
 # Page configuration
 st.set_page_config(page_title="Ayushman Bhava", layout="centered")
@@ -22,6 +23,7 @@ client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
 # Title and Header
 st.title("Ayushman Bhava")
 st.markdown("### Learn Meditation & Kriya Yoga from the Enlightened Guide")
+st.image("https://via.placeholder.com/300", caption="B. Venkateshwar Rao", use_container_width=False)
 
 # Testimonials
 st.markdown("## 🧘‍♂️ Student Experiences")
@@ -41,6 +43,16 @@ earned him the reverence of being called the \"Master of Masters.\"
 
 # Class Selection
 st.markdown("## 💸 Join the Class")
+st.write("Choose your mode of class and proceed to payment.")
+
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown("### 🌐 Online Class")
+    st.markdown("₹999")
+with col2:
+    st.markdown("### 🏡 Offline Class")
+    st.markdown("₹799")
+
 option = st.radio("Select Class Type", ("Online Class - ₹999", "Offline Class - ₹799"))
 name = st.text_input("Enter your name")
 phone = st.text_input("Enter your phone number")
@@ -52,6 +64,9 @@ privacy = st.checkbox("I agree to the Privacy Policy")
 refund = st.checkbox("I agree to the Cancellation and Refund Policy")
 
 amount = 99900 if "Online" in option else 79900
+
+if st.markdown("<style>div.stButton > button {width: 100%; font-size: 18px; padding: 12px; background-color: #f37254; color: white;}</style>", unsafe_allow_html=True):
+    pass
 
 if st.button("Pay Now"):
     if not name or not phone:

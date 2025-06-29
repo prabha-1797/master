@@ -9,13 +9,13 @@ from streamlit.components.v1 import html
 st.set_page_config(page_title="Ayushman Bhava", layout="centered")
 
 # Razorpay keys (replace with actual keys in production)
-RAZORPAY_KEY_ID = "rzp_test_XXXXXXXXXXXXXXXX"
-RAZORPAY_KEY_SECRET = "XXXXXXXXXXXXXXXXXXXXXXXX"
+RAZORPAY_KEY_ID = "rzp_test_eT9lCdOnYfweo9"
+RAZORPAY_KEY_SECRET = "1BIW3EN9r4igx1VvKirXnABf"
 
 # Email credentials
-EMAIL = "your-email@gmail.com"
-APP_PASSWORD = "your-app-password"
-MASTER_EMAIL = "ayushmanbhava@gmail.com"
+EMAIL = "teja230704@gmail.com"
+APP_PASSWORD = "hsim nlcm byyk mkuw"
+MASTER_EMAIL = "prabhavathigunda2@gmail.com"
 
 # Razorpay client
 client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))

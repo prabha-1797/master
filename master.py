@@ -1,24 +1,12 @@
 import streamlit as st
-import smtplib
-import razorpay
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import requests
 from streamlit.components.v1 import html
 
 # Page configuration
 st.set_page_config(page_title="Ayushman Bhava", layout="centered")
 
-# Razorpay keys (replace with actual keys in production)
-RAZORPAY_KEY_ID = "rzp_test_eT9lCdOnYfweo9"
-RAZORPAY_KEY_SECRET = "1BIW3EN9r4igx1VvKirXnABf"
-
-# Email credentials
-EMAIL = "teja230704@gmail.com"
-APP_PASSWORD = "hsim nlcm byyk mkuw"
-MASTER_EMAIL = "prabhavathigunda2@gmail.com"
-
-# Razorpay client
-client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
+BACKEND_URL = "https://ayush-backend-production-29e4.up.railway.app"  # Change to deployed backend URL
+RAZORPAY_KEY_ID = "rzp_test_eT9lCdOnYfweo9"  # Public key only for checkout
 
 # Title and Header
 st.title("Ayushman Bhava")
@@ -64,6 +52,8 @@ refund = st.checkbox("I agree to the Cancellation and Refund Policy")
 
 amount = 99900 if "Online" in option else 79900
 
+description = option
+
 if st.markdown("<style>div.stButton > button {width: 100%; font-size: 18px; padding: 12px; background-color: #f37254; color: white;}</style>", unsafe_allow_html=True):
     pass
 
@@ -74,55 +64,61 @@ if st.button("Pay Now"):
         st.warning("Please agree to all the policies before proceeding.")
     else:
         try:
-            # Create Razorpay order
-            order = client.order.create({
+            response = requests.post(f"{BACKEND_URL}/create_order", json={
                 "amount": amount,
-                "currency": "INR",
-                "payment_capture": "1"
+                "name": name,
+                "phone": phone,
+                "description": description
             })
+            if response.status_code == 200:
+                order_id = response.json()["order_id"]
 
-            st.markdown("### 🔒 Payment Gateway")
-            st.markdown(f"""
-            <form action="https://checkout.razorpay.com/v1/checkout.js" method="POST">
-                <script
-                    src="https://checkout.razorpay.com/v1/checkout.js"
-                    data-key="{RAZORPAY_KEY_ID}"
-                    data-amount="{amount}"
-                    data-currency="INR"
-                    data-order_id="{order['id']}"
-                    data-buttontext="Pay Now"
-                    data-name="Ayushman Bhava"
-                    data-description="{option}"
-                    data-prefill.name="{name}"
-                    data-prefill.contact="{phone}"
-                    data-theme.color="#F37254"
-                ></script>
-            </form>
-            """, unsafe_allow_html=True)
+                st.markdown("### 🔒 Payment Gateway")
+                html(f"""
+    <button id="rzp-button" style="
+        background-color: #f37254;
+        color: white;
+        padding: 14px 28px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;">
+        Pay securely through razorpay ₹{amount // 100} Now
+    </button>
 
-            # Send confirmation email
-            msg = MIMEMultipart()
-            msg['From'] = EMAIL
-            msg['To'] = MASTER_EMAIL
-            msg['Subject'] = "New Course Enrollment Notification"
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        var options = {{
+            "key": "{RAZORPAY_KEY_ID}",
+            "amount": "{amount}",
+            "currency": "INR",
+            "name": "Ayushman Bhava",
+            "description": "{description}",
+            "order_id": "{order_id}",
+            "prefill": {{
+                "name": "{name}",
+                "contact": "{phone}"
+            }},
+            "theme": {{
+                "color": "#F37254"
+            }},
+            "modal": {{
+                "ondismiss": function() {{
+                    console.log("Checkout form closed");
+                }}
+            }}
+        }};
 
-            body = f"""
-            A new user has enrolled in: {option}
-            Name: {name}
-            Phone: {phone}
-            Payment Amount: ₹{amount // 100}
-            """
-            msg.attach(MIMEText(body, 'plain'))
+        var rzp = new Razorpay(options);
+        document.getElementById('rzp-button').onclick = function(e) {{
+            rzp.open();
+            e.preventDefault();
+        }};
+    </script>
+""", height=100)
 
-            server = smtplib.SMTP('smtp.gmail.com', 587)
-            server.starttls()
-            server.login(EMAIL, APP_PASSWORD)
-            text = msg.as_string()
-            server.sendmail(EMAIL, MASTER_EMAIL, text)
-            server.quit()
-
-            st.success("Confirmation email sent to Ayushman Bhava.")
-
+            else:
+                st.error("Failed to create order. Please try again.")
         except Exception as e:
             st.error(f"An error occurred: {e}")
 

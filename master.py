@@ -5,7 +5,7 @@ import requests
 st.set_page_config(page_title="Ayushman Bhava", layout="centered")
 
 BACKEND_URL = "https://ayush-backend-production-29e4.up.railway.app"
-RAZORPAY_KEY_ID = "rzp_test_eT9lCdOnYfweo9"
+RAZORPAY_KEY_ID = "rzp_live_gvdyaC1uttFnEa"
 
 # Title and Header
 st.title("Ayushman Bhava")
@@ -39,7 +39,7 @@ with col2:
     st.markdown("### 🏡 Offline Yoga Class")
     st.markdown("\u20b9799")
 
-option = st.radio("Select Class Type", ("Online Class - ₹999", "Offline Class - ₹799"))
+option = st.radio("Select Class Type", ("Online Class - ₹999", "Offline Class - ₹999"))
 name = st.text_input("Enter your name")
 phone = st.text_input("Enter your phone number")
 
@@ -49,7 +49,7 @@ terms = st.checkbox("I agree to the Terms and Conditions")
 privacy = st.checkbox("I agree to the Privacy Policy")
 refund = st.checkbox("I agree to the Cancellation and Refund Policy")
 
-amount = 99900 if "Online" in option else 79900
+amount = 99900 if "Online" in option else 99900
 description = option
 
 if st.button("Pay Now"):
@@ -100,4 +100,4 @@ st.markdown("""
 
 # Footer
 st.markdown("---")
-st.markdown("© 2025 Ayushman Bhava | All Rights Reserved  \nContact: ayushmanbhava@gmail.com")
+st.markdown("© 2025 Ayushman Bhava | All Rights Reserved  \nContact: ayushmanbhava.help@gmail.com")

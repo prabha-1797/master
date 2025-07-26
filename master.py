@@ -9,7 +9,7 @@ RAZORPAY_KEY_ID = "rzp_live_gvdyaC1uttFnEa"
 
 # Title and Header
 st.title("Ayushman Bhava")
-st.markdown("### Learn Meditation & Kriya Yoga from the Enlightened Teacher.")
+st.markdown("### Learn Meditation & Kriya Yoga from the Enlightened Master.")
 
 # Testimonials
 st.markdown("## 🧘‍♂ Student Experiences")
@@ -39,7 +39,7 @@ with col2:
     st.markdown("### 🏡 Offline Yoga Class")
     st.markdown("\u20b9799")
 
-option = st.radio("Select Class Type", ("Online Class - ₹999", "Offline Class - ₹999"))
+option = st.radio("Select Class Type", ("Online Class - ₹999", "Offline Class - ₹1,999"))
 name = st.text_input("Enter your name")
 phone = st.text_input("Enter your phone number")
 
@@ -49,7 +49,7 @@ terms = st.checkbox("I agree to the Terms and Conditions")
 privacy = st.checkbox("I agree to the Privacy Policy")
 refund = st.checkbox("I agree to the Cancellation and Refund Policy")
 
-amount = 99900 if "Online" in option else 99900
+amount = 99900 if "Online" in option else 199900
 description = option
 
 if st.button("Pay Now"):
@@ -93,9 +93,9 @@ st.markdown("""
 
 st.markdown("""
 #### Cancellations and Refunds
-- Refunds are accepted within 7 working days of registration.  
-- After 7 days, rescheduling may be provided for genuine reasons (only once).  
-- Organizer-initiated cancellations will be rescheduled or fully refunded.
+- Refunds are not accepted at any point after registration.
+- Rescheduling may be provided once for genuine reasons, subject to organizer’s discretion.
+- If the organizer cancels the event, it will be rescheduled—refunds will not be issued.
 """)
 
 # Footer

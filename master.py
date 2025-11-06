@@ -4,7 +4,7 @@ import requests
 # Page configuration
 st.set_page_config(page_title="Ayushman Bhava", layout="centered")
 
-BACKEND_URL = "https://ayush-backend-production-29e4.up.railway.app"
+BACKEND_URL = "https://ayush-backend-xe1a.onrender.com"
 RAZORPAY_KEY_ID = "rzp_live_gvdyaC1uttFnEa"
 
 # Title and Header
